@@ -66,5 +66,5 @@ training:
   log_weight_decay: True
 
 testing:
-  experiment_ckpt_dir: /home/ubuntu/Code/custom_framework/experiments/abmil_v0/UNIv1_BRACS_COARSE_20x/0/last.ckpt
+  experiment_ckpt_dir: ../experiments/abmil_v0/UNIv1_BRACS_COARSE_20x/0/last.ckpt
 

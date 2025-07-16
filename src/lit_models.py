@@ -528,7 +528,7 @@ class LitDetModel(pl.LightningModule):
         wandb.log({
             'Epoch': self.current_epoch,
             'train/loss':{
-                        f'train/bag_loss/{losses['bag_loss_fn']}': avg_bag_loss.item(),
+                        f'train/bag_loss/{losses["bag_loss_fn"]}': avg_bag_loss.item(),
                         f'train/instance_loss/{losses["instance_loss_fn"]}': avg_instance_loss.item()
                 },
             'train/avg_loss': avg_loss.item(),
@@ -602,7 +602,7 @@ class LitDetModel(pl.LightningModule):
         self.log('val/balanced_accuracy', balanced_accuracy_score(y_true=y_true, y_pred=y_pred))
         wandb.log({'Epoch':self.current_epoch,
                     'val/loss':{
-                        f'val/bag_loss/{losses['bag_loss_fn']}': avg_bag_loss.item(),
+                        f'val/bag_loss/{losses["bag_loss_fn"]}': avg_bag_loss.item(),
                         f'val/instance_loss/{losses["instance_loss_fn"]}': avg_instance_loss.item()
                     }, 
                     'val/avg_loss': avg_loss.item(),

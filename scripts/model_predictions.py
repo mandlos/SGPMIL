@@ -25,6 +25,8 @@ import pathlib
 import csv
 import yaml
 import xml.etree.ElementTree as ET
+import sys
+sys.path.append('/path/to/project/dir/')  # Adjust this path to your project directory i.e. parent dir of src
 
 # --- Third Party Libraries ---
 import numpy as np
@@ -166,7 +168,7 @@ def _inference(model, dataloader, savedir, config, args):
         predictions['Y'] = batch['coords'][:, 1]
         predictions['Y'] = [int(i) for i in predictions['Y']]
 
-        savename = savedir / f'{batch['slide_id'][0]}'
+        savename = savedir / f'{batch["slide_id"][0]}'
         save_predictions(savename, predictions)
 
 def _infer_bayesmil(model, batch):

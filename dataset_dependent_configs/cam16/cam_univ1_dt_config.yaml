@@ -1,7 +1,7 @@
 data:
-  csv_path: ~/Code/custom_framework/dataset_dependent_configs/cam16/labels.csv # Path to labels.csv
-  data_root_dir: /mnt/features/CAMELYON16_dataset/UNIv1_CAM16_lvl2_224_features # Path to the root directory of the dataset
-  split_dir: ~/Code/custom_framework/dataset_dependent_configs/cam16/custom_splits/ # Path to the directory containing the splits
+  csv_path: /path/to/labels.csv # Path to labels.csv
+  data_root_dir: /path/to/dir/containing/features/ # Path to the root directory of the dataset
+  split_dir: /path/to/dir/containing/splits/ # Path to the directory containing the splits
   feature_extractor: UNIv1 # current feature extractor (ResNet50, UNIv1, HOPTIMUS, CONCH)
   print_info: True
   label_dict: {'normal':0, 'tumor':1} # Dictionary to map labels to integers
@@ -13,6 +13,6 @@ data:
 logging:
   feature_extractor: UNIv1_lvl2 # current feature extractor
   group: agp_univ1 # In the form of model type_feature extractor
-  model_chkpt_dir: ../experiments # Path to the directory where the model checkpoints will be saved
+  model_chkpt_dir: ./experiments # Path to the directory where the model checkpoints will be saved
 
 

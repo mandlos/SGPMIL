@@ -7,6 +7,8 @@ import pathlib
 import ast
 import shutil
 import argparse
+import sys
+sys.path.append('/path/to/project/directory')  # Adjust this path to your project directory i.e. parent dir of src
 
 # --- Third Party ---
 import torch
@@ -19,6 +21,7 @@ from lightning.pytorch import seed_everything
 import tqdm
 
 # --- Project/Local Modules ---
+import src
 from src.lit_models import LitDetModel, LitGPModel
 from custom_utils.general_calibration_error import gce
 from src.main import init_loaders, determine_model_class, load_configs
@@ -185,14 +188,14 @@ def main(args):
 
         total_cm += cm
 
-        cm_savedir = pathlib.Path(savedir) / f'cm_{config['logging']['model_version']}_fold{fold}.png'
+        cm_savedir = pathlib.Path(savedir) / f'cm_{config["logging"]["model_version"]}_fold{fold}.png'
         plot_cm(cm, cm_savedir)
     
     print('Saving results...')
 
     save_metrics(results, config, args)
     print('Plotting total confusion matrix...')
-    cm_savedir = cm_savedir.parent / f'cm_{config['logging']['model_version']}_total.png'
+    cm_savedir = cm_savedir.parent / f'cm_{config["logging"]["model_version"]}_total.png'
     plot_cm(total_cm, cm_savedir)
 
     print('Done!')

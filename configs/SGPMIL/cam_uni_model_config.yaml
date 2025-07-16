@@ -31,7 +31,7 @@ model:
 logging:
   save_predictions: True
   run_name: test_run  # Can be set to auto
-  tracking_url: ./mlruns
+  tracking_url: ../mlruns
   high_conf_metrics: False
   wandb: True
   project: CAMELYON16  # Name of the project in wandb i.e. Dataset name
@@ -70,6 +70,6 @@ training:
   log_weight_decay: True
 
 testing:
-  experiment_ckpt_dir: /home/ubuntu/Code/sgpmil/experiments/sgpmil_v0/UNIv1_CAM16_lvl2_224_features/4/last.ckpt
+  experiment_ckpt_dir: ../experiments/sgpmil_v0/UNIv1_CAM16_lvl2_224_features/4/last.ckpt
 
 
