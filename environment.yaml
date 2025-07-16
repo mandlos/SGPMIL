@@ -1,0 +1,13 @@
+name: agp_torch
+channels:
+  - conda-forge
+  - nvidia
+  - pytorch
+dependencies:
+  - pytorch
+  - pytorch-cuda=12.4
+  - torchaudio
+  - torchvision
+  - ipykernel
+  - lightning
+prefix: /opt/conda/envs/agp_torch
