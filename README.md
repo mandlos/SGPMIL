@@ -28,6 +28,13 @@ The repository is organized as follows:
 
 Option 1 – using pip:
 ```bash
+# 1. Create a clean conda or venv environment
+conda create -n sgpmil python=3.10 -y
+conda activate sgpmil
+# 2. Install OpenSlide system libraries (required for WSI)
+# Linux:
+sudo apt-get install -y openslide-tools libopenslide0
+# 3. Install Python dependencies
 pip install -r requirements.txt
 ```
 
