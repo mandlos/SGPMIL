@@ -1,6 +1,7 @@
 # **SGPMIL**: Sparse Gaussian Process Multiple Instance Learning
 
 > **Update:** This work has been accepted to **WACV 2026**.
+> 📄 **Preprint:** https://arxiv.org/abs/2507.08711
 
 ![Model Overview](./figures/sgpmil.png)
 
@@ -76,7 +77,20 @@ python model_predictions.py \
 ```
 
 ## Paper
-If you find this work useful or relevant, please cite our paper (citation details will be added after review).
+
+If you use this repository or find it helpful, please cite our paper:
+
+```bibtex
+@misc{lolos2025sgpmilsparsegaussianprocess,
+      title={SGPMIL: Sparse Gaussian Process Multiple Instance Learning}, 
+      author={Andreas Lolos and Stergios Christodoulidis and Maria Vakalopoulou and Jose Dolz and Aris Moustakas},
+      year={2025},
+      eprint={2507.08711},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2507.08711}
+}
+```
 
 ## License
 
@@ -84,3 +98,17 @@ This code is released under a modified MIT License for non-commercial use.
 See [LICENSE](./LICENSE.txt) for details.
 
 For commercial licensing inquiries, please contact the authors after the review process.
+
+## Acknowledgements & External Code
+
+This repository builds upon publicly available MIL implementations to ensure fair and reproducible benchmarking.  
+Where applicable, we incorporated or adapted components from the following official repositories:
+
+- **TransMIL**
+- **BayesMIL / Bayesian MIL**
+- **ABMIL / CLAM**
+- **Trident** — used for WSI segmentation, patching, and feature extraction  
+- **CLAM** — some preprocessing utilities (masking, tiling logic) adapted for compatibility
+
+Additional acknowledgements and references will be added as the repository is expanded.
+
