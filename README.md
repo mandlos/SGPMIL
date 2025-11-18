@@ -1,5 +1,7 @@
 # **SGPMIL**: Sparse Gaussian Process Multiple Instance Learning
 
+> **Update:** This work has been accepted to **WACV 2026**.
+
 ![Model Overview](./figures/sgpmil.png)
 
 This repository contains the official implementation and supporting materials for our paper.
