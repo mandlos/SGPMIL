@@ -701,7 +701,7 @@ class LitDetModel(pl.LightningModule):
         # Define loss computation
         instance_loss = raw_out['results_dict']['instance_loss']
         if self.config['model']['bag_loss_fn'] == 'ce':
-            bag_loss = CrossEntropyLoss()(raw_out['Y_prob'], y)
+            bag_loss = CrossEntropyLoss()(raw_out['logits'], y)
         elif self.config['model']['bag_loss_fn'] == 'svm':
             bag_loss = SmoothTop1SVM(n_classes=self.num_classes)(raw_out['logits'], y)
         else:
@@ -717,7 +717,7 @@ class LitDetModel(pl.LightningModule):
         # Define loss computation
         instance_loss = None
         if self.config['model']['bag_loss_fn'] == 'ce':
-            bag_loss = CrossEntropyLoss()(raw_out['Y_prob'], y)
+            bag_loss = CrossEntropyLoss()(raw_out['logits'], y)
         elif self.config['model']['bag_loss_fn'] == 'svm':
             bag_loss = SmoothTop1SVM(n_classes=self.num_classes)(raw_out['logits'], y)
         else:
@@ -736,7 +736,7 @@ class LitDetModel(pl.LightningModule):
 
         # Define loss computation
         if self.config['model']['bag_loss_fn'] == 'ce':
-            bag_loss = CrossEntropyLoss()(raw_out['Y_prob'], y)
+            bag_loss = CrossEntropyLoss()(raw_out['Y_logits'], y)
         elif self.config['model']['bag_loss_fn'] == 'svm':
             bag_loss = SmoothTop1SVM(n_classes=self.num_classes)(raw_out['Y_logits'], y)
         elif self.config['model']['bag_loss_fn'] == 'bcewlogits':
