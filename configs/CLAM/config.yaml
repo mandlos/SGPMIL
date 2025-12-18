@@ -1,24 +1,24 @@
 data:
-  dataset_config: ../dataset_dependent_configs/bracs/bracs_coarse_univ1_dt_config.yaml
-  artifact_dir: ../dataset_dependent_configs/bracs/out/clam/bracs_univ1_20x
+  dataset_config: /path/to/dataset_config/file.yaml
+  artifact_dir: /path/to/artifact/dir
   data_dims: 1024    # Embeddings dimensions Resnet50:1024, CONCH: 512, UNIv1: 1024, HOPTIMUS: 1536
-  use_h5: True
   num_classes: 3
-  split: 0 # Split number, Currently for PANDA 4 splits 0, 1, 2, 3 (can be up to 9)
+  use_h5: True
+  split: 0
 
 model:
   attention: clam # [gp, clam, transmil, mil]
-  variant: mb # [sb, mb] for single or multi branch
+  variant: sb # [sb, mb] for single or multi branch
   model_size: big
-  feature_extractor: univ1_20x # [resnet50, conch, univ1, hoptimus]
+  feature_extractor: univ1_lvl2 # [resnet50, conch, univ1, hoptimus]
   gate: True
   embed_dim: 1024
   dropout: 0.25
-  B: 16
+  B: 32
   instance_loss_fn: 'svm' # [svm, cross_entropy]
   bag_loss_fn: 'ce' # [svm, cross_entropy]
   bag_weight: 0.7 # weight coefficient for bag level loss i.e. bag_weight * bag_loss + (1-bag_weight) * instance_loss
-  subtyping: True
+  subtyping: False
   print_model: True
 
 logging:
@@ -27,11 +27,11 @@ logging:
   tracking_url: ./mlruns
   high_conf_metrics: False
   wandb: True
-  project: BRACS  # Name of the project in wandb i.e. Dataset name
-  model_ckpt_dir: ../experiments/clam_mb # Path to the directory where the model checkpoints will be saved
-  model_version: v4
+  project: PROJECT_NAME  # Name of the project in wandb i.e. Dataset name
+  model_ckpt_dir: /path/to/ckpt_savedir # Path to the directory where the model checkpoints will be saved
+  model_version: v0
 
-seed: 2029   # Random seed for reproducibility v0: 2025, v1: 2026, v2: 2027, v3: 2028, v4: 2029
+seed: 2025   # Seed for everything with the seed_torch function from main.py
 phase: train # train, test
 
 training:
@@ -39,9 +39,9 @@ training:
   gpu_index: [0]
   strategy: auto
   precision: '32'
-  patience: 10 # Early stopping patience
+  patience: 200 # Early stopping patience
   optimizer: adamw # [adam, sgd, adamw, lookahead_radam]
-  reg: 5.e-5 #  weight decay regularization----->check 5.e-3
+  reg: 5.e-5 #  weight decay regularization
   scheduler: cosine # [lamda, cosine, linearcosine]
   learning_rate: 1.e-4  # 0.0001 reasonable choice
   # stuff exclusively for lamda scheduler
@@ -53,7 +53,7 @@ training:
   # stuff exclusively for cosine/linearcosine scheduler
   min_lr: 1.e-5
   # stuff exclusively for linearcosine scheduler
-  warmup_epochs: 5
+  warmup_epochs: 20
   warmup_lr: 1.e-5
   # logging stuff
   lr_logging_interval: epoch  # Log learning rate ['step', 'epoch', None]
@@ -61,5 +61,6 @@ training:
   log_weight_decay: True
 
 testing:
-  experiment_ckpt_dir: ../experiments/clam_mb_v0/UNIv1_BRACS_COARSE_20x/0/last.ckpt
+  experiment_ckpt_dir: /path/to/model.ckpt
+
 

@@ -1,28 +1,25 @@
 data:
-  dataset_config: ../dataset_dependent_configs/panda/panda_univ1_dt_config.yaml
-  artifact_dir: ../dataset_dependent_configs/panda/out/abmil/panda_uni_lvl1
-  data_dims: 1024    # Embeddings dimensions Resnet50:1024, CONCH: 512, UNIv1: 1024, HOPTIMUS: 1536
+  dataset_config: /path/to/dataset_config/file.yaml
+  artifact_dir: /path/to/artifact/dir
+  data_dims: 1024 # Embeddings dimensions Resnet50:1024, CONCH: 512, UNIv1: 1024, HOPTIMUS: 1536
+  num_classes: 3
   use_h5: True
-  split: 3 # Split number, Currently for PANDA 4 splits 0, 1, 2, 3 (can be up to 9)
+  split: 0 # Split number, must be int
 
 model:
-  attention: abmil # [gp, clam, transmil, abmil, dgrmil]
+  attention: transmil # [clam, transmil, mil]
   variant: null # [sb, mb] for single or multi branch
   model_size: null
-  attn_branches: 1 # Number of attention branches-explain later
   feature_extractor: univ1_lvl2 # [resnet50, conch, univ1, hoptimus]
-  gate: True
+  gate: null
   embed_dim: 1024
-  # intermediate layers to reduce dimensionality of features i.e. L and M inside the model
-  hidden_layer1: 512
-  hidden_layer2: 128
-  dropout: 0.15
-  attn_branches: 1
+  dropout: null
+  B: null
   instance_loss_fn: null
-  bag_loss_fn: 'ce' # [svm, ce, bcewlogits], ce: CrossEntropy, bcewlogits: BCEWithLogitsLoss, svm:SmoothTop1SVM
-  bag_weight: null # weight coefficient for bag level loss i.e. bag_weight * bag_loss + (1-bag_weight) * instance_loss
-  subtyping: False
-  print_model: True
+  bag_loss_fn: 'ce' # [ce, svm]
+  bag_weight: null
+  subtyping: null
+  print_model: False
 
 logging:
   save_predictions: True
@@ -30,10 +27,9 @@ logging:
   tracking_url: ./mlruns
   high_conf_metrics: False
   wandb: True
-  project: PANDA  # Name of the project in wandb i.e. Dataset name
-  model_ckpt_dir: ../experiments/abmil # Path to the directory where the model checkpoints will be saved
+  project: PROJECT_NAME  # Name of the project in wandb i.e. Dataset name
+  model_ckpt_dir: /path/to/ckpt_savedir # Path to the directory where the model checkpoints will be saved
   model_version: v0
-
 
 seed: 2025   # Seed for everything with the seed_torch function from main.py
 phase: train # train, test
@@ -43,9 +39,9 @@ training:
   gpu_index: [0]
   strategy: auto
   precision: '32'
-  patience: 10 # Early stopping patience
+  patience: 200 # Early stopping patience
   optimizer: adamw # [adam, sgd, adamw, lookahead_radam]
-  reg: 5.e-5 #  weight decay regularization----->check 5.e-3
+  reg: 5.e-5 #  weight decay regularization
   scheduler: cosine # [lamda, cosine, linearcosine]
   learning_rate: 1.e-4  # 0.0001 reasonable choice
   # stuff exclusively for lamda scheduler
@@ -57,7 +53,7 @@ training:
   # stuff exclusively for cosine/linearcosine scheduler
   min_lr: 1.e-5
   # stuff exclusively for linearcosine scheduler
-  warmup_epochs: 5
+  warmup_epochs: 20
   warmup_lr: 1.e-5
   # logging stuff
   lr_logging_interval: epoch  # Log learning rate ['step', 'epoch', None]
@@ -65,5 +61,5 @@ training:
   log_weight_decay: True
 
 testing:
-  experiment_ckpt_dir: ../experiments/abmil_v0/UNIv1_PANDA_20x/0/last.ckpt
+  experiment_ckpt_dir: /path/to/model.ckpt
 
